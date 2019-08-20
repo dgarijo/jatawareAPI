@@ -1,0 +1,19 @@
+#+ method: GET
+#+ summary: Query that given a variable presentation, returns the models, versions and configurations which use or produce that variable. The query also retrieves whether the variable is used as an input or output.
+#+ defaults:
+#+   - var: https://w3id.org/mint/instance/37377535-0d8b-436d-bb81-ba636e1534d4
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX mc: <https://w3id.org/mint/modelCatalog#>
+PREFIX os: <http://ontosoft.org/software#>
+
+SELECT DISTINCT ?model ?version ?isInput ?configuration ?compLoc
+from <https://w3id.org/mint/instance/modelservice_graph>
+WHERE {
+  ?model a mc:Model.
+  ?model os:hasSoftwareVersion ?version.
+  ?version mc:hasConfiguration ?configuration.
+  OPTIONAL{?configuration mc:hasComponentLocation ?compLoc}.
+  ?configuration ?isInput ?io.
+  ?io mc:hasPresentation ?_var_iri.
+}

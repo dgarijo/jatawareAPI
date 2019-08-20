@@ -1,0 +1,10 @@
+#+ method: GET
+#+ summary: query that retrieves all metadata from a target resource ?_mv
+#+ defaults:
+#+   - mv: https://w3id.org/mint/instance/FSC
+
+SELECT ?prop ?value
+from <https://w3id.org/mint/instance/modelservice_graph>
+WHERE {
+  ?_mv_iri ?prop ?value
+}

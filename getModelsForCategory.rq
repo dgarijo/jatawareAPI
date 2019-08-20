@@ -1,0 +1,12 @@
+#+ method: GET
+#+ summary: Query that returns the models associated to a particular category ?_cat
+#+ defaults:
+#+   - cat: Economic
+
+PREFIX mc: <https://w3id.org/mint/modelCatalog#>
+SELECT ?model
+from <https://w3id.org/mint/instance/modelservice_graph>
+WHERE {
+  ?model a mc:Model.
+  ?model mc:hasModelCategory ?_cat_string.
+}
